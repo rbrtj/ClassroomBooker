@@ -19,15 +19,42 @@ def get_schedule_links(url):
     
     return links
 
+def extract_schedule_data(table):
+    schedule_data = {}
+    days_of_week = ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek"]
+
+    rows = table.find_all('tr')[1:]  # pomijamy pierwszy wiersz, bo to nagłówki
+
+    for row in rows:
+        columns = row.find_all('td')
+        time_range = columns[1].get_text(strip=True)
+
+        for day, column in zip(days_of_week, columns[2:]):
+            if day not in schedule_data:
+                schedule_data[day] = {}
+
+            content = column.get_text(strip=True, separator=" ")
+            if content:
+                schedule_data[day][time_range] = content
+
+    return schedule_data
+
+
 def get_schedule_data():
     links = get_schedule_links(BASE_URL)
-    print(links)
-    for link in links:
-        response = requests.get(BASE_URL + link)
-        soup = BeautifulSoup(response.content, 'html.parser')
-        print(soup)
-        table = soup.find('table', class_='tabela')
-        rows = table.find_all('tr')
+    all_data = []
+    # for link in links:
+    response = requests.get(BASE_URL + links[1])
+    soup = BeautifulSoup(response.content, 'html.parser')
+    room_name = soup.find('span', class_="tytulnapis").text.strip()
+    table = soup.find('table', class_='tabela')
+    schedule = extract_schedule_data(table)
+    all_data.append({
+    "sala": room_name,
+    "zajecia": schedule
+    })
+    return all_data
 
-get_schedule_data()
+data = get_schedule_data();
+print(data);
 
