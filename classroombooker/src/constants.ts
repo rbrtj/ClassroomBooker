@@ -1,9 +1,3 @@
-//TODO: Move departments to a database
-
-export const departments = [
-  { id: 1, name: "Wydział Mechaniczny", photo: "/pk_wm.jpeg" },
-];
-
 export const TIME_RANGES = [
   "7:30-8:15",
   "8:15-9:00",
