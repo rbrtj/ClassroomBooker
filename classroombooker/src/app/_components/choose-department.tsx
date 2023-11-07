@@ -6,10 +6,9 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
+import { departments } from "~/constants";
 import { buttonVariants } from "./ui/button";
-import { api } from "~/trpc/server";
-export async function ChooseDepartment() {
-  const departments = await api.department.getDepartments.query();
+export function ChooseDepartment() {
   return (
     <>
       <div className="pb-12">
@@ -30,13 +29,13 @@ export async function ChooseDepartment() {
                   <CardTitle>{department.name}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {/* <Image
+                  <Image
                     src={department.photo}
                     alt="Photo of department"
                     height={300}
                     width={300}
                     className="rounded- h-[300px] w-[300px]"
-                  /> */}
+                  />
                 </CardContent>
                 <CardFooter>
                   <a
