@@ -4,16 +4,18 @@ import { departments } from "~/constants";
 
 interface PageProps {
   params: {
-    slug: string;
+    departmentId: string;
   };
 }
 export default function Home({ params }: PageProps) {
-  const { slug } = params;
-  if (!departments.find((department) => department.id.toString() === slug))
+  const { departmentId } = params;
+  if (
+    !departments.find((department) => department.id.toString() === departmentId)
+  )
     return notFound();
   return (
     <>
-      <ChooseBuilding departmentId={slug} />
+      <ChooseBuilding departmentId={departmentId} />
     </>
   );
 }
