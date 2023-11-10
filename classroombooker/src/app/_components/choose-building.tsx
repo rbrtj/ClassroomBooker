@@ -15,17 +15,19 @@ export async function ChooseBuilding({ departmentId }: ChooseBuildingProps) {
   return (
     <>
       <div className="pb-12">
-        <h1 className="text-2xl font-bold">Wybierz budynek</h1>
+        <h1 className="text-5xl font-bold">Wybierz budynek</h1>
       </div>
-      <div className="mx-auto flex w-full flex-col justify-center gap-6 md:flex-row">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         <Suspense fallback={<div>Loading ...</div>}>
           {buildings.map((building) => (
             <Link
               href={`/department/${departmentId}/building/${building.id}`}
               key={building.id}
-              className={buttonVariants({ variant: "ghost" })}
             >
-              {building.name}
+              <div className="transform rounded-md border p-4 transition duration-500 ease-in-out hover:scale-105">
+                <h3 className="mb-2 font-semibold">Budynek {building.name}</h3>
+                <p className="text-sm text-gray-500">Wydział mechaniczny</p>
+              </div>
             </Link>
           ))}
         </Suspense>
