@@ -11,7 +11,7 @@ import { buttonVariants } from "./ui/button";
 export function ChooseDepartment() {
   return (
     <>
-      <div className="pb-12">
+      <div className="flex justify-center pb-12">
         <h1 className="text-2xl font-bold">Wybierz wydział</h1>
       </div>
       <div className="mx-auto flex w-full justify-center">
