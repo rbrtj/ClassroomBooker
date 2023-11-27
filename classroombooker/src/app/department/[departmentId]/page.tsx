@@ -15,6 +15,9 @@ export default function Home({ params }: PageProps) {
     return notFound();
   return (
     <>
+      <div className="pb-12">
+        <h1 className="mx-0 text-5xl font-bold">Wybierz budynek</h1>
+      </div>
       <ChooseBuilding departmentId={departmentId} />
     </>
   );

@@ -13,8 +13,11 @@ export default async function Home({
   });
   console.log("Rooms: ", rooms);
   return (
-    <div>
+    <>
+      <div className="pb-12">
+        <h1 className="mx-0 text-5xl font-bold">Wybierz sale</h1>
+      </div>
       <ChooseRoom rooms={rooms} />
-    </div>
+    </>
   );
 }
