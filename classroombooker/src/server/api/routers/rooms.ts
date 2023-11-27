@@ -7,6 +7,7 @@ export const roomsRouter = createTRPCRouter({
     .query(({ input, ctx }) => {
       return ctx.db.room.findMany({
         where: { buildingId: input.buildingId },
+        orderBy: { name: "asc" },
       });
     }),
 });
