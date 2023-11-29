@@ -4,3 +4,7 @@ import { type CLASSES_HOURS } from "../constants/schedule";
 export type Agenda = RouterOutputs["agenda"]["getAgenda"];
 
 export type LectureHours = (typeof CLASSES_HOURS)[number];
+
+export type AgendaItem = Agenda[number];
+
+export type PreprocessedAgenda = Record<string, AgendaItem[]>;
