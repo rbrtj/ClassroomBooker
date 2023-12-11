@@ -1,4 +1,4 @@
-import { ChooseDepartment } from "./_components/choose-department";
+import { ChooseDepartment } from "./choose-department";
 
 export default function Home() {
   return (

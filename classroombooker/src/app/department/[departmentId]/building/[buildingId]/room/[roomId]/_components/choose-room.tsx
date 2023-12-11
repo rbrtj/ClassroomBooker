@@ -1,7 +1,11 @@
 import { type Rooms } from "~/lib/types/room";
-import { Card, CardHeader, CardTitle } from "./ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+} from "../../../../../../../_components/ui/card";
 import Link from "next/link";
-import { ScrollArea } from "./ui/scroll-area";
+import { ScrollArea } from "../../../../../../../_components/ui/scroll-area";
 import { ChevronRight } from "lucide-react";
 
 interface ChooseRoomProps {

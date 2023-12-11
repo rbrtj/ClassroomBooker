@@ -1,4 +1,4 @@
-import { ChooseRoom } from "~/app/_components/choose-room";
+import { ChooseRoom } from "~/app/department/[departmentId]/building/[buildingId]/room/[roomId]/_components/choose-room";
 import { api } from "~/trpc/server";
 
 export default async function Home({

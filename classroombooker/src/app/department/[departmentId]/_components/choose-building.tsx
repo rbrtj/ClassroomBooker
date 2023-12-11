@@ -1,8 +1,13 @@
 import Link from "next/link";
 import React from "react";
 import { api } from "~/trpc/server";
-import { ScrollArea } from "./ui/scroll-area";
-import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { ScrollArea } from "../../../_components/ui/scroll-area";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../../_components/ui/card";
 import { ChevronRight } from "lucide-react";
 
 interface ChooseBuildingProps {
