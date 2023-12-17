@@ -6,6 +6,9 @@ import { TableCell } from "./ui/table";
 import { DayOfWeek } from "../constants/DayOfWeekMap";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import { AgendaDialog } from "./AgendaDialog";
+import { LectureBadge } from "./LectureBadge";
+import { type LectureType } from "~/types/LectureType";
+import { LectureTypeMap } from "~/constants/LectureTypeMap";
 
 const AgendaCell = React.memo(
   ({
@@ -31,9 +34,16 @@ const AgendaCell = React.memo(
     );
     return (
       <Dialog>
-        <TableCell className="p-0 transition-colors hover:cursor-pointer hover:bg-blue-300">
+        <TableCell className="p-0 transition-colors hover:cursor-pointer hover:bg-blue-600">
           <DialogTrigger asChild>
-            <div className="h-full w-full p-4">{itemForThisCell?.name}</div>
+            <div className="h-full w-full p-4">
+              {itemForThisCell?.name}
+              {itemForThisCell && (
+                <LectureBadge variant={itemForThisCell?.type as LectureType}>
+                  {LectureTypeMap[itemForThisCell?.type as LectureType]?.[0]}
+                </LectureBadge>
+              )}
+            </div>
           </DialogTrigger>
           <DialogContent>
             <AgendaDialog
