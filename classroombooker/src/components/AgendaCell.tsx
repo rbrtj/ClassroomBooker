@@ -5,7 +5,7 @@ import { doTimesOverlap } from "../utils/DoTimesOverlap";
 import { TableCell } from "./ui/table";
 import { DayOfWeek } from "../constants/DayOfWeekMap";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
-import AgendaDialog from "./AgendaDialog";
+import { AgendaDialog } from "./AgendaDialog";
 
 const AgendaCell = React.memo(
   ({
