@@ -37,6 +37,8 @@ import { DayOfWeek } from "~/constants/DayOfWeekMap";
 import { LectureTypes } from "~/constants/LectureTypes";
 import { LectureTypeMap } from "~/constants/LectureTypeMap";
 import { parityBooleanToString } from "~/utils/ParityBooleanToString";
+import { DialogClose, DialogFooter } from "./ui/dialog";
+import { api } from "~/trpc/react";
 
 const lectureFormSchema = z.object({
   name: z.string(),
@@ -52,10 +54,12 @@ export default function LectureForm({
   agendaItem,
   day,
   teachers,
+  refetchLectures,
 }: {
   agendaItem: AgendaItem | undefined;
   day: string;
   teachers: Teacher[] | undefined;
+  refetchLectures: () => Promise<void>;
 }) {
   const form = useForm<z.infer<typeof lectureFormSchema>>({
     resolver: zodResolver(lectureFormSchema),
@@ -70,6 +74,15 @@ export default function LectureForm({
     },
   });
 
+  const { mutate: deleteLecture } = api.lectures.deleteLecture.useMutation({
+    onSuccess: async () => {
+      await refetchLectures();
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+
   const lectureStartTimes = CLASSES_HOURS.map((hour) => hour.startTime);
 
   const availableLectureEndTimes = getPossibleLectureEndTime(
@@ -78,6 +91,11 @@ export default function LectureForm({
 
   const onSubmit = (data: z.infer<typeof lectureFormSchema>) => {
     console.log(data);
+  };
+
+  const handleDeleteLecture = () => {
+    if (!agendaItem) return;
+    deleteLecture({ id: agendaItem.id });
   };
 
   return (
@@ -280,6 +298,26 @@ export default function LectureForm({
             </FormItem>
           )}
         />
+
+        <DialogFooter>
+          <DialogClose asChild>
+            {agendaItem && (
+              <Button
+                type="button"
+                variant="destructive"
+                className="w-1/3"
+                onClick={() => handleDeleteLecture()}
+              >
+                Usuń
+              </Button>
+            )}
+          </DialogClose>
+          <DialogClose asChild>
+            <Button type="submit" className="w-1/3">
+              Zatwierdź
+            </Button>
+          </DialogClose>
+        </DialogFooter>
       </form>
     </Form>
   );

@@ -1,7 +1,7 @@
 import { type RouterOutputs } from "~/trpc/shared";
 import { type CLASSES_HOURS } from "../../constants/Schedule";
 
-export type Agenda = RouterOutputs["agenda"]["getAgenda"];
+export type Agenda = RouterOutputs["lectures"]["getLectures"];
 
 export type LectureHours = (typeof CLASSES_HOURS)[number];
 

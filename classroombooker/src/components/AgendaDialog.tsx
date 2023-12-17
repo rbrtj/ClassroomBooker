@@ -7,9 +7,11 @@ import { api } from "~/trpc/react";
 export const AgendaDialog = ({
   agendaItem,
   day,
+  refetchLectures,
 }: {
   agendaItem: AgendaItem | undefined;
   day: string;
+  refetchLectures: () => Promise<void>;
 }) => {
   // TODO: It shouldn't call api on each cell click.
   const { data: teachers } = api.teacher.getTeachers.useQuery();
@@ -26,7 +28,12 @@ export const AgendaDialog = ({
             : "Stwórz nową lekcję uzupełniając poniższe pola"}
         </DialogDescription>
       </DialogHeader>
-      <LectureForm agendaItem={agendaItem} day={day} teachers={teachers} />
+      <LectureForm
+        agendaItem={agendaItem}
+        day={day}
+        teachers={teachers}
+        refetchLectures={refetchLectures}
+      />
     </>
   );
 };

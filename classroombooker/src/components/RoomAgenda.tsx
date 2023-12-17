@@ -13,11 +13,7 @@ import LectureRow from "./AgendaLectureRow";
 import TableHeaderRow from "./AgendaHeaderRow";
 import AgendaCell from "./AgendaCell";
 
-interface RoomAgendaProps {
-  agenda: Agenda;
-}
-
-const DesktopRoomAgenda = ({ agenda }: RoomAgendaProps) => {
+const DesktopRoomAgenda = ({ agenda, refetchLectures }: RoomAgendaProps) => {
   return (
     <div className="w-full overflow-x-scroll rounded-lg bg-white p-8 shadow-md md:overflow-x-visible">
       <Table className="w-full min-w-[600px] overflow-hidden rounded-lg md:min-w-0">
@@ -30,6 +26,7 @@ const DesktopRoomAgenda = ({ agenda }: RoomAgendaProps) => {
               key={lecture.startTime}
               lecture={lecture}
               agenda={agenda}
+              refetchLectures={refetchLectures}
             />
           ))}
         </TableBody>
@@ -38,7 +35,7 @@ const DesktopRoomAgenda = ({ agenda }: RoomAgendaProps) => {
   );
 };
 
-const MobileRoomAgenda = ({ agenda }: RoomAgendaProps) => {
+const MobileRoomAgenda = ({ agenda, refetchLectures }: RoomAgendaProps) => {
   return (
     <div className="w-full overflow-x-scroll rounded-lg bg-white p-8 shadow-md md:overflow-x-visible">
       <Table className="w-full rounded-lg md:min-w-0">
@@ -60,6 +57,7 @@ const MobileRoomAgenda = ({ agenda }: RoomAgendaProps) => {
                     agenda={agenda}
                     lecture={lecture}
                     day={day}
+                    refetchLectures={refetchLectures}
                   />
                 </TableRow>
               ))}
@@ -71,14 +69,19 @@ const MobileRoomAgenda = ({ agenda }: RoomAgendaProps) => {
   );
 };
 
-export function RoomAgenda({ agenda }: RoomAgendaProps) {
+interface RoomAgendaProps {
+  agenda: Agenda;
+  refetchLectures: () => Promise<void>;
+}
+
+export function RoomAgenda({ agenda, refetchLectures }: RoomAgendaProps) {
   return (
     <>
       <div className="h-full md:hidden">
-        <MobileRoomAgenda agenda={agenda} />
+        <MobileRoomAgenda agenda={agenda} refetchLectures={refetchLectures} />
       </div>
       <div className="container hidden w-full md:block">
-        <DesktopRoomAgenda agenda={agenda} />
+        <DesktopRoomAgenda agenda={agenda} refetchLectures={refetchLectures} />
       </div>
     </>
   );

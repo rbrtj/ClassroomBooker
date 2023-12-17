@@ -12,10 +12,12 @@ const AgendaCell = React.memo(
     agenda,
     lecture,
     day,
+    refetchLectures,
   }: {
     agenda: Agenda;
     lecture: LectureHours;
     day: string;
+    refetchLectures: () => Promise<void>;
   }) => {
     const itemForThisCell = agenda.find(
       (item) =>
@@ -34,7 +36,11 @@ const AgendaCell = React.memo(
             <div className="h-full w-full p-4">{itemForThisCell?.name}</div>
           </DialogTrigger>
           <DialogContent>
-            <AgendaDialog agendaItem={itemForThisCell} day={day} />
+            <AgendaDialog
+              agendaItem={itemForThisCell}
+              day={day}
+              refetchLectures={refetchLectures}
+            />
           </DialogContent>
         </TableCell>
       </Dialog>
