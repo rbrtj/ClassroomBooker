@@ -5,9 +5,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./_components/ui/card";
+} from "../components/ui/card";
 import { departments } from "~/constants";
-import { buttonVariants } from "./_components/ui/button";
+import { buttonVariants } from "../components/ui/button";
 export function ChooseDepartment() {
   return (
     <>

@@ -1,8 +1,8 @@
 import React from "react";
 import { type Agenda, type LectureHours } from "~/lib/types/agenda";
-import { TableCell, TableRow } from "../ui/table";
-import { DAYS_OF_WEEK } from "~/lib/constants/schedule";
-import AgendaCell from "./agenda-cell";
+import { TableCell, TableRow } from "./ui/table";
+import { DAYS_OF_WEEK } from "~/constants/Schedule";
+import AgendaCell from "./AgendaCell";
 
 interface LectureRowProps {
   lecture: LectureHours;

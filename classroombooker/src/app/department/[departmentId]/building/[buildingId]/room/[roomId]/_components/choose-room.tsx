@@ -3,9 +3,9 @@ import {
   Card,
   CardHeader,
   CardTitle,
-} from "../../../../../../../_components/ui/card";
+} from "../../../../../../../../components/ui/card";
 import Link from "next/link";
-import { ScrollArea } from "../../../../../../../_components/ui/scroll-area";
+import { ScrollArea } from "../../../../../../../../components/ui/scroll-area";
 import { ChevronRight } from "lucide-react";
 
 interface ChooseRoomProps {

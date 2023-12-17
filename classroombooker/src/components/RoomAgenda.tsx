@@ -6,18 +6,18 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../ui/table";
-import { CLASSES_HOURS, DAYS_OF_WEEK } from "~/lib/constants/schedule";
+} from "./ui/table";
+import { CLASSES_HOURS, DAYS_OF_WEEK } from "~/constants/Schedule";
 import React from "react";
-import LectureRow from "./lecture-row";
-import TableHeaderRow from "./table-header-row";
-import AgendaCell from "./agenda-cell";
+import LectureRow from "./AgendaLectureRow";
+import TableHeaderRow from "./AgendaHeaderRow";
+import AgendaCell from "./AgendaCell";
 
 interface RoomAgendaProps {
   agenda: Agenda;
 }
 
-const DefaultRoomAgenda = ({ agenda }: RoomAgendaProps) => {
+const DesktopRoomAgenda = ({ agenda }: RoomAgendaProps) => {
   return (
     <div className="w-full overflow-x-scroll rounded-lg bg-white p-8 shadow-md md:overflow-x-visible">
       <Table className="w-full min-w-[600px] overflow-hidden rounded-lg md:min-w-0">
@@ -78,7 +78,7 @@ export function RoomAgenda({ agenda }: RoomAgendaProps) {
         <MobileRoomAgenda agenda={agenda} />
       </div>
       <div className="container hidden w-full md:block">
-        <DefaultRoomAgenda agenda={agenda} />
+        <DesktopRoomAgenda agenda={agenda} />
       </div>
     </>
   );

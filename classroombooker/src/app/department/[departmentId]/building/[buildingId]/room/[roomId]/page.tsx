@@ -1,4 +1,4 @@
-import { RoomAgenda } from "~/app/_components/room-agenda/room-agenda";
+import { RoomAgenda } from "~/components/RoomAgenda";
 import { api } from "~/trpc/server";
 
 interface PageProps {

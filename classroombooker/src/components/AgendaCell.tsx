@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
 import { type Agenda, type LectureHours } from "~/lib/types/agenda";
-import { doTimesOverlap } from "./utils/doTimesOverlap";
-import { TableCell } from "../ui/table";
-import { DayOfWeek } from "./utils/DayOfWeekMap";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
-import EditCreateAgendaItem from "./edit-create-agenda-item";
+import { doTimesOverlap } from "../utils/DoTimesOverlap";
+import { TableCell } from "./ui/table";
+import { DayOfWeek } from "../constants/DayOfWeekMap";
+import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
+import AgendaDialog from "./AgendaDialog";
 
 const AgendaCell = React.memo(
   ({
@@ -34,7 +34,7 @@ const AgendaCell = React.memo(
             <div className="h-full w-full p-4">{itemForThisCell?.name}</div>
           </DialogTrigger>
           <DialogContent>
-            <EditCreateAgendaItem agendaItem={itemForThisCell} />
+            <AgendaDialog agendaItem={itemForThisCell} day={day} />
           </DialogContent>
         </TableCell>
       </Dialog>

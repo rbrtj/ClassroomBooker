@@ -1,5 +1,5 @@
-import { DAYS_OF_WEEK } from "~/lib/constants/schedule";
-import { TableHead, TableRow } from "../ui/table";
+import { DAYS_OF_WEEK } from "~/constants/Schedule";
+import { TableHead, TableRow } from "./ui/table";
 
 const TableHeaderRow = () => (
   <TableRow>
