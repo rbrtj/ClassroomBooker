@@ -1,7 +1,7 @@
 import { createTRPCRouter } from "~/server/api/trpc";
 import { buildingRouter } from "./routers/building";
 import { roomsRouter } from "./routers/rooms";
-import { lecturesRouter } from "./routers/agenda";
+import { lecturesRouter } from "./routers/lectures";
 import { teacherRouter } from "./routers/teacher";
 
 /**
