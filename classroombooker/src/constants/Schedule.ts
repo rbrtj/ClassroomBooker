@@ -1,9 +1,11 @@
-export const DAYS_OF_WEEK = [
-  "Poniedziałek",
-  "Wtorek",
-  "Środa",
-  "Czwartek",
-  "Piątek",
+import { type DayOfWeek, type DayOfWeekPolish } from "~/types/DayOfWeek";
+
+export const DAYS_OF_WEEK: DayOfWeek[] = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
 ];
 export const CLASSES_HOURS = [
   { startTime: "7:30", endTime: "8:15" },

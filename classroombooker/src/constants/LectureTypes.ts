@@ -1,6 +1,6 @@
-import { type LectureType } from "~/types/LectureType";
+import { type Lecture } from "~/types/Lecture";
 
-export const LectureTypes: LectureType[] = [
+export const LectureTypes: Lecture[] = [
   "lecture",
   "seminar",
   "other",

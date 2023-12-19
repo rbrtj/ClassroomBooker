@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "./ui/table";
 import { CLASSES_HOURS, DAYS_OF_WEEK } from "~/constants/Schedule";
-import React from "react";
+import React, { Fragment } from "react";
 import LectureRow from "./AgendaLectureRow";
 import TableHeaderRow from "./AgendaHeaderRow";
 import AgendaCell from "./AgendaCell";
@@ -40,7 +40,7 @@ const MobileRoomAgenda = ({ agenda, refetchLectures }: RoomAgendaProps) => {
     <div className="w-full overflow-x-scroll rounded-lg bg-white p-8 shadow-md md:overflow-x-visible">
       <Table className="w-full rounded-lg md:min-w-0">
         {DAYS_OF_WEEK.map((day) => (
-          <>
+          <Fragment key={day}>
             <TableHeader>
               <TableRow>
                 <TableHead>{day}</TableHead>
@@ -62,7 +62,7 @@ const MobileRoomAgenda = ({ agenda, refetchLectures }: RoomAgendaProps) => {
                 </TableRow>
               ))}
             </TableBody>
-          </>
+          </Fragment>
         ))}
       </Table>
     </div>

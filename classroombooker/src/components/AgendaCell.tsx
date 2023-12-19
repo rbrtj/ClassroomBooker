@@ -3,13 +3,13 @@ import React from "react";
 import { type Agenda, type LectureHours } from "~/lib/types/agenda";
 import { doTimesOverlap } from "../utils/DoTimesOverlap";
 import { TableCell } from "./ui/table";
-import { DayOfWeek } from "../constants/DayOfWeekMap";
+import { DayOfWeekMap } from "../constants/DayOfWeekMap";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import { AgendaDialog } from "./AgendaDialog";
 import { LectureBadge } from "./LectureBadge";
-import { type LectureType } from "~/types/LectureType";
+import { type Lecture } from "~/types/Lecture";
 import { LectureTypeMap } from "~/constants/LectureTypeMap";
-
+import { type DayOfWeek } from "~/types/DayOfWeek";
 const AgendaCell = React.memo(
   ({
     agenda,
@@ -19,12 +19,12 @@ const AgendaCell = React.memo(
   }: {
     agenda: Agenda;
     lecture: LectureHours;
-    day: string;
+    day: DayOfWeek;
     refetchLectures: () => Promise<void>;
   }) => {
     const itemForThisCell = agenda.find(
       (item) =>
-        DayOfWeek[item.dayOfWeek] === day &&
+        (item.dayOfWeek as DayOfWeek) === day &&
         doTimesOverlap(
           item.startTime,
           item.endTime,
@@ -39,10 +39,11 @@ const AgendaCell = React.memo(
             <div className="h-full w-full p-4">
               {itemForThisCell?.name}
               {itemForThisCell && (
-                <LectureBadge variant={itemForThisCell?.type as LectureType}>
-                  {LectureTypeMap[itemForThisCell?.type as LectureType]?.[0]}
+                <LectureBadge variant={itemForThisCell?.type as Lecture}>
+                  {LectureTypeMap[itemForThisCell?.type as Lecture]?.[0]}
                 </LectureBadge>
               )}
+              {itemForThisCell && <p>14K2</p>}
             </div>
           </DialogTrigger>
           <DialogContent>

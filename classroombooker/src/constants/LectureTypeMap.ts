@@ -1,6 +1,6 @@
-import { type LectureType } from "~/types/LectureType";
+import { type Lecture } from "~/types/Lecture";
 
-export const LectureTypeMap: Record<LectureType, string> = {
+export const LectureTypeMap: Record<Lecture, string> = {
   lecture: "Wykład",
   seminar: "Seminarium",
   other: "Inne",

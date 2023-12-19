@@ -39,7 +39,11 @@ export const lecturesRouter = createTRPCRouter({
     )
     .mutation(async ({ input, ctx }) => {
       const schedule = await ctx.db.lecture.findMany({
-        where: { roomId: input.roomId, dayOfWeek: input.dayOfWeek },
+        where: {
+          roomId: input.roomId,
+          dayOfWeek: input.dayOfWeek,
+          evenWeek: input.evenWeek,
+        },
       });
       const isOverlapping = schedule.some((lecture) =>
         doTimesOverlap(

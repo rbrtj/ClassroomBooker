@@ -3,6 +3,7 @@ import { type AgendaItem } from "~/lib/types/agenda";
 import { DialogDescription, DialogHeader, DialogTitle } from "./ui/dialog";
 import LectureForm from "./LectureForm";
 import { api } from "~/trpc/react";
+import { type DayOfWeek } from "~/types/DayOfWeek";
 
 export const AgendaDialog = ({
   agendaItem,
@@ -10,7 +11,7 @@ export const AgendaDialog = ({
   refetchLectures,
 }: {
   agendaItem: AgendaItem | undefined;
-  day: string;
+  day: DayOfWeek;
   refetchLectures: () => Promise<void>;
 }) => {
   // TODO: It shouldn't call api on each cell click.

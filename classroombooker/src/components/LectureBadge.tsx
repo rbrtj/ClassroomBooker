@@ -1,9 +1,9 @@
-import { type LectureType } from "~/types/LectureType";
+import { type Lecture } from "~/types/Lecture";
 import { Badge } from "./ui/badge";
 import { cn } from "~/lib/lib";
 
 interface LectureBadgeProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant: LectureType;
+  variant: Lecture;
 }
 
 export const LectureBadge = ({
