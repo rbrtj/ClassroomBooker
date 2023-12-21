@@ -12,8 +12,13 @@ import React, { Fragment } from "react";
 import LectureRow from "./AgendaLectureRow";
 import TableHeaderRow from "./AgendaHeaderRow";
 import AgendaCell from "./AgendaCell";
+import { type StudentGroup } from "~/types/StudentGroup";
 
-const DesktopRoomAgenda = ({ agenda, refetchLectures }: RoomAgendaProps) => {
+const DesktopRoomAgenda = ({
+  agenda,
+  refetchLectures,
+  studentGroups,
+}: RoomAgendaProps) => {
   return (
     <div className="w-full overflow-x-scroll rounded-lg bg-white p-8 shadow-md md:overflow-x-visible">
       <Table className="w-full min-w-[600px] overflow-hidden rounded-lg md:min-w-0">
@@ -27,6 +32,7 @@ const DesktopRoomAgenda = ({ agenda, refetchLectures }: RoomAgendaProps) => {
               lecture={lecture}
               agenda={agenda}
               refetchLectures={refetchLectures}
+              studentGroups={studentGroups}
             />
           ))}
         </TableBody>
@@ -35,7 +41,11 @@ const DesktopRoomAgenda = ({ agenda, refetchLectures }: RoomAgendaProps) => {
   );
 };
 
-const MobileRoomAgenda = ({ agenda, refetchLectures }: RoomAgendaProps) => {
+const MobileRoomAgenda = ({
+  agenda,
+  refetchLectures,
+  studentGroups,
+}: RoomAgendaProps) => {
   return (
     <div className="w-full overflow-x-scroll rounded-lg bg-white p-8 shadow-md md:overflow-x-visible">
       <Table className="w-full rounded-lg md:min-w-0">
@@ -58,6 +68,7 @@ const MobileRoomAgenda = ({ agenda, refetchLectures }: RoomAgendaProps) => {
                     lecture={lecture}
                     day={day}
                     refetchLectures={refetchLectures}
+                    studentGroups={studentGroups}
                   />
                 </TableRow>
               ))}
@@ -71,17 +82,30 @@ const MobileRoomAgenda = ({ agenda, refetchLectures }: RoomAgendaProps) => {
 
 interface RoomAgendaProps {
   agenda: Agenda;
+  studentGroups: StudentGroup[];
   refetchLectures: () => Promise<void>;
 }
 
-export function RoomAgenda({ agenda, refetchLectures }: RoomAgendaProps) {
+export function RoomAgenda({
+  agenda,
+  refetchLectures,
+  studentGroups,
+}: RoomAgendaProps) {
   return (
     <>
       <div className="h-full md:hidden">
-        <MobileRoomAgenda agenda={agenda} refetchLectures={refetchLectures} />
+        <MobileRoomAgenda
+          agenda={agenda}
+          refetchLectures={refetchLectures}
+          studentGroups={studentGroups}
+        />
       </div>
       <div className="container hidden w-full md:block">
-        <DesktopRoomAgenda agenda={agenda} refetchLectures={refetchLectures} />
+        <DesktopRoomAgenda
+          agenda={agenda}
+          refetchLectures={refetchLectures}
+          studentGroups={studentGroups}
+        />
       </div>
     </>
   );

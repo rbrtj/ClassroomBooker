@@ -35,6 +35,7 @@ export const lecturesRouter = createTRPCRouter({
         type: z.enum(["lecture", "seminar", "other", "practice"]),
         startTime: z.string(),
         endTime: z.string(),
+        studentGroup: z.number(),
       }),
     )
     .mutation(async ({ input, ctx }) => {
@@ -69,6 +70,7 @@ export const lecturesRouter = createTRPCRouter({
           type: input.type,
           startTime: input.startTime,
           endTime: input.endTime,
+          studentGroupId: input.studentGroup,
         },
       });
     }),

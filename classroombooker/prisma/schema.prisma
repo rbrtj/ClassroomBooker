@@ -37,6 +37,12 @@ model Teacher {
     lectures Lecture[]
 }
 
+model StudentGroup {
+    id Int @id @default(autoincrement())
+    name String
+    lecture Lecture[]
+}
+
 model Lecture {
     id Int @id @default(autoincrement())
     name String
@@ -47,8 +53,10 @@ model Lecture {
     type String
     startTime String
     endTime String
+    studentGroupId Int?
     teacher Teacher @relation(fields: [teacherId], references: [id], onDelete: Cascade)
     room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+    studentGroup StudentGroup? @relation(fields: [studentGroupId], references: [id], onDelete: Cascade)
 }
 
 // model Post {

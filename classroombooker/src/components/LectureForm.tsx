@@ -42,6 +42,7 @@ import { api } from "~/trpc/react";
 import { type DayOfWeek } from "~/types/DayOfWeek";
 import { type Lecture } from "~/types/Lecture";
 import { useToast } from "./ui/use-toast";
+import { type StudentGroup } from "~/types/StudentGroup";
 
 const lectureFormSchema = z.object({
   name: z
@@ -54,7 +55,9 @@ const lectureFormSchema = z.object({
     .max(15, {
       message: "Nazwa zajęć musi mieć od 3 do 15 znaków",
     }),
-  dayOfWeek: z.custom<DayOfWeek>(),
+  dayOfWeek: z.custom<DayOfWeek>().refine((type) => !!type, {
+    message: "Wybierz dzień tygodnia",
+  }),
   type: z.custom<Lecture>().refine((type) => !!type, {
     message: "Wybierz rodzaj zajęć",
   }),
@@ -70,6 +73,9 @@ const lectureFormSchema = z.object({
   teacher: z.number({
     required_error: "Wybierz prowadzącego",
   }),
+  studentGroup: z.number({
+    required_error: "Wybierz grupę",
+  }),
 });
 
 export default function LectureForm({
@@ -77,22 +83,27 @@ export default function LectureForm({
   day,
   teachers,
   refetchLectures,
+  studentGroups,
+  setIsDialogOpen,
 }: {
   agendaItem: AgendaItem | undefined;
   day: DayOfWeek;
   teachers: Teacher[] | undefined;
   refetchLectures: () => Promise<void>;
+  studentGroups: StudentGroup[];
+  setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const form = useForm<z.infer<typeof lectureFormSchema>>({
     resolver: zodResolver(lectureFormSchema),
     defaultValues: {
       name: agendaItem?.name ?? "",
-      dayOfWeek: (agendaItem?.dayOfWeek as DayOfWeek) ?? day,
-      type: (agendaItem?.type as Lecture) ?? "",
-      startTime: agendaItem?.startTime ?? "",
-      endTime: agendaItem?.endTime ?? "",
+      dayOfWeek: (agendaItem?.dayOfWeek as DayOfWeek) ?? undefined,
+      type: (agendaItem?.type as Lecture) ?? undefined,
+      startTime: agendaItem?.startTime ?? undefined,
+      endTime: agendaItem?.endTime ?? undefined,
       evenWeek: agendaItem?.evenWeek ?? true,
-      teacher: agendaItem?.teacherId ?? 0,
+      teacher: agendaItem?.teacherId ?? undefined,
+      studentGroup: agendaItem?.studentGroupId ?? undefined,
     },
   });
 
@@ -150,7 +161,9 @@ export default function LectureForm({
       evenWeek: data.evenWeek,
       teacherId: data.teacher,
       roomId: 1,
+      studentGroup: data.studentGroup,
     });
+    setIsDialogOpen(false);
   };
 
   const handleDeleteLecture = () => {
@@ -243,7 +256,7 @@ export default function LectureForm({
               <FormLabel>Dzień tygodnia</FormLabel>
               <Select
                 onValueChange={field.onChange}
-                defaultValue={field.value ?? day}
+                defaultValue={field.value ?? undefined}
               >
                 <FormControl>
                   <SelectTrigger>
@@ -364,7 +377,38 @@ export default function LectureForm({
             </FormItem>
           )}
         />
-
+        <FormField
+          control={form.control}
+          name="studentGroup"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Grupa studencka</FormLabel>
+              <Select
+                onValueChange={(value) => {
+                  field.onChange(parseInt(value));
+                }}
+                defaultValue={field?.value?.toString()}
+              >
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Wybierz grupe" />
+                  </SelectTrigger>
+                </FormControl>
+                <FormMessage />
+                <SelectContent>
+                  {studentGroups.map((studentGroup) => (
+                    <SelectItem
+                      value={studentGroup.id.toString()}
+                      key={studentGroup.id}
+                    >
+                      {studentGroup.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormItem>
+          )}
+        />
         <DialogFooter>
           <DialogClose asChild>
             {agendaItem && (
@@ -378,11 +422,9 @@ export default function LectureForm({
               </Button>
             )}
           </DialogClose>
-          <DialogClose asChild>
-            <Button type="submit" className="w-1/3">
-              Zatwierdź
-            </Button>
-          </DialogClose>
+          <Button type="submit" className="w-1/3">
+            Zatwierdź
+          </Button>
         </DialogFooter>
       </form>
     </Form>

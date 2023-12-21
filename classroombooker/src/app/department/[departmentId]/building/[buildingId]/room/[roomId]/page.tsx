@@ -18,6 +18,8 @@ export default function Home({ params }: PageProps) {
     roomId: parseInt(roomId),
   });
 
+  const { data: studentGroups } = api.studentGroup.getStudentGroups.useQuery();
+
   // Used to omit refetch type
   const refetchWrapper = async () => {
     await refetch();
@@ -27,7 +29,7 @@ export default function Home({ params }: PageProps) {
     setIsOddWeekSelected(!isOddWeekSelected);
   };
 
-  if (!agenda) return null;
+  if (!agenda || !studentGroups) return null;
 
   const filteredAgenda = agenda.filter(
     (lecture) => lecture.evenWeek === !isOddWeekSelected,
@@ -49,7 +51,11 @@ export default function Home({ params }: PageProps) {
           Tydzień parzysty
         </Button>
       </div>
-      <RoomAgenda agenda={filteredAgenda} refetchLectures={refetchWrapper} />
+      <RoomAgenda
+        agenda={filteredAgenda}
+        refetchLectures={refetchWrapper}
+        studentGroups={studentGroups}
+      />
     </div>
   );
 }
